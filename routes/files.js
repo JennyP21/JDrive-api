@@ -13,7 +13,7 @@ router.get("/", (req, res) => {
 });
 
 router.post("/upload", upload.single("file"), (req, res) => {
-  console.log(req);
+  console.log(req.file);
   res.send("File Uploaded Successfully");
 });
 
