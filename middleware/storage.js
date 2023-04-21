@@ -4,7 +4,7 @@ const multer = require("multer");
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, "C:\\jdrive-storage");
+    cb(null, "C:\\jdrive-storage\\mydrive");
   },
   filename: function (req, file, cb) {
     cb(null, file.fieldname);
