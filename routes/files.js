@@ -1,4 +1,4 @@
-const upload = require("../startup/storage");
+const upload = require("../middleware/storage");
 const crypto = require("crypto");
 const express = require("express");
 const router = express.Router();
@@ -12,9 +12,8 @@ router.get("/", (req, res) => {
   });
 });
 
-router.post("/upload", upload.single(), (req, res) => {
-  console.log(req.body);
-  console.log(req.file);
+router.post("/upload", upload.single("file"), (req, res) => {
+  console.log(req);
   res.send("File Uploaded Successfully");
 });
 
