@@ -1,13 +1,12 @@
-const fs = require("fs");
-const path = require("path");
 const multer = require("multer");
+const config = require("config");
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, "C:\\jdrive-storage\\mydrive");
+    cb(null, config.get("storagePath"));
   },
   filename: function (req, file, cb) {
-    cb(null, file.fieldname);
+    cb(null, file.originalname);
   },
 });
 
