@@ -2,7 +2,7 @@ const db = require("../startup/db");
 
 module.exports = function () {
   let accountTable = `
-  CREATE TABLE folders (
+  CREATE TABLE IF NOT EXISTS folders (
     id char(36) NOT NULL,
     name varchar(64) DEFAULT NULL,
     parentFolder char(36) NOT NULL,
