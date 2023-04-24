@@ -2,7 +2,7 @@ const db = require("../startup/db");
 
 module.exports = function () {
   let accountTable = `
-  CREATE TABLE IF NOT EXISTS jdrive.account (
+  CREATE TABLE IF NOT EXISTS jdrive.accounts (
     id CHAR(36) NOT NULL,
     name VARCHAR(64) NULL,
     email VARCHAR(64) NOT NULL,

@@ -4,9 +4,9 @@ const router = express.Router();
 const db = require("../startup/db");
 
 // Creating folder
-router.post("/create", upload.single("file"), (req, res) => {});
+router.post("/create", (req, res) => {});
 
 // Deleting folder
-router.get("/delete/:id", removeFile, (req, res) => {});
+router.get("/delete", (req, res) => {});
 
 module.exports = router;

@@ -55,7 +55,7 @@ router.post("/upload", upload.single("file"), (req, res) => {
 });
 
 // Deleting file
-router.get("/delete/:id", removeFile, (req, res) => {
+router.delete("/delete/:id", removeFile, (req, res) => {
   const deleteFile = "DELETE FROM FILES WHERE id = ?";
   const id = req.params.id;
   db.query(deleteFile, id, function (error, result) {
