@@ -2,11 +2,12 @@ const db = require("../startup/db");
 
 module.exports = function () {
   let fileTable = `
-  CREATE TABLE IF NOT EXISTS files (
+  CREATE TABLE files (
     id char(36) NOT NULL,
     name longtext,
     type tinytext,
     size int DEFAULT NULL,
+    folder char(36) NOT NULL,
     path longtext,
     localPath longtext,
     created date DEFAULT NULL,
@@ -16,6 +17,7 @@ module.exports = function () {
     PRIMARY KEY (id),
     UNIQUE KEY id_UNIQUE (id),
     KEY owner_idx (owner),
+    CONSTRAINT folder FOREIGN KEY (id) REFERENCES folders (id),
     CONSTRAINT owner FOREIGN KEY (owner) REFERENCES account (id)
   ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
 `;
