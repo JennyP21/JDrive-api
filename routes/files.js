@@ -4,6 +4,7 @@ const express = require("express");
 const router = express.Router();
 const db = require("../startup/db");
 
+// Getting Files
 router.get("/", (req, res) => {
   const getFiles = "SELECT * FROM FILES";
   db.query(getFiles, function (error, result) {
@@ -12,6 +13,17 @@ router.get("/", (req, res) => {
   });
 });
 
+// Getting single files
+router.get("/:id", (req, res) => {
+  const getFiles = "SELECT * FROM FILES WHERE id = ?";
+  const id = req.params.id;
+  db.query(getFiles, id, function (error, result) {
+    if (error) throw error;
+    res.send(result);
+  });
+});
+
+// Uploading files
 router.post("/upload", upload.single("file"), (req, res) => {
   const file = req.file;
   const uuid = crypto.randomUUID();
