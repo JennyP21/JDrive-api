@@ -1,8 +1,10 @@
-const upload = require("../middleware/storage");
+const upload = require("../middleware/uploadFile");
 const crypto = require("crypto");
 const express = require("express");
 const router = express.Router();
 const db = require("../startup/db");
+const removeFile = require("../middleware/removeFile");
+const multer = require("multer");
 
 // Getting Files
 router.get("/", (req, res) => {
@@ -15,9 +17,9 @@ router.get("/", (req, res) => {
 
 // Getting single files
 router.get("/:id", (req, res) => {
-  const getFiles = "SELECT * FROM FILES WHERE id = ?";
+  const getFile = "SELECT * FROM FILES WHERE id = ?";
   const id = req.params.id;
-  db.query(getFiles, id, function (error, result) {
+  db.query(getFile, id, function (error, result) {
     if (error) throw error;
     res.send(result);
   });
@@ -31,10 +33,10 @@ router.post("/upload", upload.single("file"), (req, res) => {
   const date = new Date().toISOString().slice(0, 19).replace("T", " ");
 
   if (!file) return res.status(400).send("No file uploaded");
-  const query =
+  const insertFiles =
     "INSERT INTO FILES (id, name, type, size, path, localPath, created, modified) VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
   db.query(
-    query,
+    insertFiles,
     [
       uuid,
       file.originalname,
@@ -50,6 +52,16 @@ router.post("/upload", upload.single("file"), (req, res) => {
     }
   );
   return res.send("File uploaded and saved successfully");
+});
+
+// Deleting files
+router.get("/delete/:id", removeFile, (req, res) => {
+  const deleteFile = "DELETE FROM FILES WHERE id = ?";
+  const id = req.params.id;
+  db.query(deleteFile, id, function (error, result) {
+    if (error) throw error;
+    res.send("File deleted successfully");
+  });
 });
 
 module.exports = router;
