@@ -15,7 +15,7 @@ router.get("/", (req, res) => {
   });
 });
 
-// Getting single files
+// Getting single file
 router.get("/:id", (req, res) => {
   const getFile = "SELECT * FROM FILES WHERE id = ?";
   const id = req.params.id;
@@ -54,7 +54,7 @@ router.post("/upload", upload.single("file"), (req, res) => {
   return res.send("File uploaded and saved successfully");
 });
 
-// Deleting files
+// Deleting file
 router.get("/delete/:id", removeFile, (req, res) => {
   const deleteFile = "DELETE FROM FILES WHERE id = ?";
   const id = req.params.id;
