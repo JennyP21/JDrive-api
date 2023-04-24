@@ -2,7 +2,7 @@ const db = require("../startup/db");
 
 module.exports = function () {
   let fileTable = `
-  CREATE TABLE files (
+  CREATE TABLE IF NOT EXISTS files (
     id char(36) NOT NULL,
     name longtext,
     type tinytext,
