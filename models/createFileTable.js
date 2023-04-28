@@ -8,7 +8,6 @@ module.exports = function () {
     type tinytext,
     size int DEFAULT NULL,
     folder char(36) NOT NULL,
-    path longtext,
     localPath longtext,
     created date DEFAULT NULL,
     modified date DEFAULT NULL,

@@ -29,12 +29,11 @@ router.get("/:id", (req, res) => {
 router.post("/upload", upload.single("file"), (req, res) => {
   const file = req.file;
   const uuid = crypto.randomUUID();
-  const virtualPath = "mydrive/";
   const date = new Date().toISOString().slice(0, 19).replace("T", " ");
 
   if (!file) return res.status(400).send("No file uploaded");
   const insertFiles =
-    "INSERT INTO FILES (id, name, type, size, path, localPath, created, modified) VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
+    "INSERT INTO FILES (id, name, type, size, folder, localPath, created, modified, owner) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";
   db.query(
     insertFiles,
     [
@@ -42,10 +41,11 @@ router.post("/upload", upload.single("file"), (req, res) => {
       file.originalname,
       file.mimetype,
       file.size,
-      virtualPath,
+      req.body.folder,
       file.path,
       date,
       date,
+      req.body.owner,
     ],
     (error, result) => {
       if (error) console.log(error.message);
