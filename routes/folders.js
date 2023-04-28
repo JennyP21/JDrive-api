@@ -5,15 +5,21 @@ const db = require("../startup/db");
 
 // Creating folder
 router.post("/create", (req, res) => {
-  const currentFolder = req.body.currentFolder;
-  const folderName = req.body.folderName;
   const id = crypto.randomUUID();
+  const folderName = req.body.folderName;
+  const currentFolder = req.body.currentFolder;
+  const folderOwner = req.body.owner;
   const createFolder =
-    "INSERT INTO FOLDERS(id, name, parentFolder) VALUES(?, ?, ?)";
-
-  db.query(createFolder, [id, folderName, currentFolder], (error, results) => {
-    if (error) return error;
-  });
+    "INSERT INTO FOLDERS(id, name, parentFolder, folderOwner) VALUES(?, ?, ?, ?)";
+  db.query(
+    createFolder,
+    [id, folderName, currentFolder, folderOwner],
+    (error, results) => {
+      if (error) return error;
+      console.log(results);
+    }
+  );
+  res.send("Folder Created Successfully");
 });
 
 // Deleting folder
