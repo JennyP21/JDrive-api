@@ -17,7 +17,7 @@ module.exports = function () {
     PRIMARY KEY (id),
     UNIQUE KEY id_UNIQUE (id),
     KEY owner_idx (owner),
-    CONSTRAINT folder FOREIGN KEY (id) REFERENCES folders (id),
+    CONSTRAINT folder FOREIGN KEY (folder) REFERENCES folders (id),
     CONSTRAINT owner FOREIGN KEY (owner) REFERENCES accounts (id)
   ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
 `;
